@@ -2,9 +2,9 @@
 
 # Script Name:      Uptime Sensor Tool
 # Author:           Vincent Bailey
-# Last Rev:         10/5/2021
+# Last Rev:         10/6/2021
 # Purpose:          This script will perform a ping request on a specific IP address
-#                   until the user stops the program.
+#                   until the user stops the program. 
 
 # Import libraries
 
@@ -18,7 +18,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 ip = "8.8.8.8"
-response = os.system("ping " + ip)
+response = os.system("ping -c 4 " + ip)
 senderAddress='totallyreal@address.com'
 senderPass='xxxxxxxxxx'
 receiverAddress='totallyreal@address.com'
