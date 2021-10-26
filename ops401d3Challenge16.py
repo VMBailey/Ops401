@@ -55,8 +55,7 @@ def defense():
             break
 
     if flag==1: # if the password was matched above, print confirmation and line number
-        print("That Password Was Found!","Line", index)
-    
+        print("Gotcha! Password Found!","Line", index)
     file.close()
     time.sleep(1.6)
 
