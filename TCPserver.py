@@ -19,7 +19,7 @@ import socket
 # socket.SOCK_STREAM tells python that we will be establishing a TCP connection.
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = socket.gethostbyname()
+host = socket.gethostname()
 port = 444
 
 ##############################################################################
