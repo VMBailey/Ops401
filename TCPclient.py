@@ -21,7 +21,10 @@ port = 444
 ##############################################################################
 # Main Function
 ##############################################################################
-clientsocket.connect(('192.168.1.120', port))
+# The server's IP address must be included for the client script to call this script.
+# An example of this would be to replace 'host' with the desired host's IP address.
+# clientsocket.connect(('192.168.blah.blah', port))
+clientsocket.connect((host, port))
 
 # the code line below specifies how much data will be received throught the port.
 message = clientsocket.recv(1024)
