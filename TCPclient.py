@@ -21,7 +21,7 @@ port = 444
 ##############################################################################
 # Main Function
 ##############################################################################
-clientsocket.connect((host, port))
+clientsocket.connect(('192.168.1.120', port))
 
 # the code line below specifies how much data will be received throught the port.
 message = clientsocket.recv(1024)
