@@ -38,7 +38,7 @@ serversocket.listen(3)
 
 while True:
     clientsocket, address = serversocket.accept()
-    print("Received connection from " % str(address))
+    print("Received connection from: %s " % str(address))
 
     message = 'Welcome to the Cerberus Network!' + "\r\n"
     clientsocket.send(message.encode('ascii'))
