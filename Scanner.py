@@ -16,7 +16,7 @@ import sys, nmap, time
 ##############################################################################
 # socket.AF_INET tells pythin that we will be creating a socket connection over IPV4.
 scanner = nmap.PortScanner()
-
+target = input
 
 ##############################################################################
 # Start Menu Function
@@ -100,3 +100,15 @@ def compscan():
     print("IP Status: ", scanner[target].state())
     print(scanner[target].all_protocols())
     print("Open Ports: ", scanner[target]['udp'].keys())
+
+
+##############################################################################
+# Main
+##############################################################################
+startmenu()
+synackscan()
+udpscan()
+compscan()
+##############################################################################
+# End
+##############################################################################
